@@ -25,3 +25,13 @@ class StudentModel(PersonModel):
 
     class Meta:
         db_table = 'student'
+
+class TeacherModel(PersonModel):
+    from school.models import SchoolModel
+    subject = models.ForeignKey('statistic.SubjectModel',on_delete=models.SET_NULL,null=True)
+    toifa = models.CharField(max_length=65,default='')
+    salary = models.PositiveIntegerField(default=1)
+    school = models.ManyToManyField(to=SchoolModel)
+
+    def __str__(self) -> str:
+        return self.name
